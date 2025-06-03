@@ -6,4 +6,4 @@
 [**Raúl Quilez Ruiz**](https://github.com/Quilez42) \
 [**Rubén Expósito Vicente**](https://github.com/Rebirzt)
 
-## [Repositorio principal]
+## [Repositorio principal](https://github.com/Proyecto1K2024Grupo2/ProyectoGrupo2_2024)
