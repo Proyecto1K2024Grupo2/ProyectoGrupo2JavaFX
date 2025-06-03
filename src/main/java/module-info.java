@@ -1,0 +1,10 @@
+module com.iesochoa.grupo2.proyectogrupo2javafx {
+    requires javafx.controls;
+    requires javafx.fxml;
+    requires java.sql;
+    requires java.desktop;
+
+    opens com.iesochoa.grupo2.proyectogrupo2javafx.Model to javafx.base;
+    opens com.iesochoa.grupo2.proyectogrupo2javafx.Controller to javafx.fxml;
+    exports com.iesochoa.grupo2.proyectogrupo2javafx.Controller;
+}
