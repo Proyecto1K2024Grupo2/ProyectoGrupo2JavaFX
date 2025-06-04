@@ -36,6 +36,9 @@ public class ClienteController {
     private Button buscarAnimalButton;
 
     @FXML
+    private Button buscarClienteButton;
+
+    @FXML
     private Button centroButton;
 
     @FXML
@@ -50,7 +53,7 @@ public class ClienteController {
     private TableView<Cliente> clientesTable;
 
     @FXML
-    private TableColumn<Cliente, String> colDNICli1;
+    private TableColumn<Cliente, String> colDniCli1;
 
     @FXML
     private TableColumn<Animal, Integer> colIdAnimal;
@@ -116,7 +119,10 @@ public class ClienteController {
     private TextField razaMascotaTextField;
 
     @FXML
-    private TextField searchAnimal;
+    private TextField searchAnimalTextfield;
+
+    @FXML
+    private TextField searchClienteTextField;
 
     @FXML
     private TextField telefonoTextField;
@@ -139,7 +145,7 @@ public class ClienteController {
     @FXML
     public void initialize() {
         // --- Initialize Cliente Table Columns (corrected PropertyValueFactory names) ---
-        colDNICli1.setCellValueFactory(new PropertyValueFactory<>("dniCliente"));
+        colDniCli1.setCellValueFactory(new PropertyValueFactory<>("dniCliente"));
         colNombreCli.setCellValueFactory(new PropertyValueFactory<>("nombreCliente"));
         colTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 

@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -13,7 +14,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.control.cell.PropertyValueFactory?>
 <BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesochoa.grupo2.proyectogrupo2javafx.Controller.ClienteController">
 
     <left>
@@ -40,14 +40,12 @@
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </padding>
                     <children>
-                        <Label style="-fx-font-size: 1.5em; -fx-font-weight: bold;" text="Buscar Cliente" />
-                        <TextField fx:id="searchCliente" promptText="Buscar..." />
+                  <Label layoutX="382.0" layoutY="30.0" style="-fx-font-size: 1.5em; -fx-font-weight: bold;" text="Buscar Clietnte" />
+                  <TextField fx:id="searchClienteTextField" layoutX="644.0" layoutY="31.0" promptText="Buscar..." />
                         <Button fx:id="buscarClienteButton" mnemonicParsing="false" text="Buscar" />
-                    </children>
-                    <children>
                         <Label style="-fx-font-size: 1.5em; -fx-font-weight: bold;" text="Buscar Animal" />
-                        <TextField fx:id="searchAnimal" promptText="Buscar..." />
-                        <Button fx:id="buscarAnimalButton" mnemonicParsing="false" text="Buscar" />
+                        <TextField fx:id="searchAnimalTextfield" promptText="Buscar..." />
+                  <Button fx:id="buscarAnimalButton" layoutX="964.0" layoutY="31.0" mnemonicParsing="false" text="Buscar" />
                     </children>
                 </HBox>
 
@@ -129,7 +127,7 @@
                         <TableColumn fx:id="colNombreCli" prefWidth="175.20001220703125" text="Nombre">
                             <cellValueFactory><PropertyValueFactory property="nombre" /></cellValueFactory>
                         </TableColumn>
-                        <TableColumn fx:id="colDNICli" minWidth="0.0" prefWidth="149.5999755859375" text="DNI">
+                        <TableColumn fx:id="colDniCli1" minWidth="0.0" prefWidth="149.5999755859375" text="DNI">
                             <cellValueFactory><PropertyValueFactory property="dni" /></cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="colTelefono" minWidth="0.0" prefWidth="132.79998779296875" text="Teléfono">
