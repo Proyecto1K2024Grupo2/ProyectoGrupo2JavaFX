@@ -29,12 +29,12 @@ public class CuidadorDAO extends EmpleadoDAO{
     //Sentencia SQL para crear la si no existe
 
     // Consultas SQL predefinidas para operaciones CRUD
-    private static final String INSERT_QUERY = "INSERT INTO cuidador (dni) VALUES (?, ?, ?, ?,?)";
-    private static final String INSERT_QUERY_EMPLEADO = "INSERT INTO empleado(dni) VALUES (?)";
+    private static final String INSERT_QUERY = "INSERT INTO cuidador (dni) VALUES (?)";
+    private static final String INSERT_QUERY_EMPLEADO = "INSERT INTO empleado(dni, nombre, telefono, numcuenta, sueldo) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_QUERY = "SELECT e.dni, e.nombre, e.telefono, e.numcuenta, e.Sueldo FROM empleado e JOIN cuidador cu ON cu.dni = e.dni";
     private static final String SELECT_BY_DNI_QUERY = "SELECT e.dni, e.nombre, e.telefono, e.numcuenta, e.Sueldo FROM cuidador cu JOIN empleado e ON cu.dni = e.dni WHERE cu.dni = ?";
     private static final String UPDATE_QUERY = "UPDATE cuidador SET dni = ? WHERE dni = ?";
-    private static final String UPDATE_QUERY_EMPLEADO = "UPDATE empleado SET  nombre = ?, telefono = ? , numcuenta = ?, saldo = ?  WHERE dni = ?";
+    private static final String UPDATE_QUERY_EMPLEADO = "UPDATE empleado SET  nombre = ?, telefono = ? , numcuenta = ?, sueldo = ?  WHERE dni = ?";
     private static final String DELETE_QUERY = "DELETE FROM cuidador WHERE dni = ?";
     private static final String DELETE_QUERY_EMPLEADO = "DELETE FROM empleado WHERE dni = ?";
     private static final String TOTAL_PERSONAS_QUERY = "SELECT COUNT(*) FROM cuidador";

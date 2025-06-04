@@ -214,6 +214,35 @@ public class EmpleadosController {
         onClickBuscar(event); // Reutiliza el método de búsqueda principal
     }
 
+    /**
+     * Maneja el evento de clic en una fila de la tabla.
+     * Muestra los datos del empleado seleccionado en los campos de texto del panel "Info Empleado".
+     */
+    @FXML
+    private void handleTableSelection() {
+        Empleado selectedEmpleado = empleadosTable.getSelectionModel().getSelectedItem();
+        if (selectedEmpleado != null) {
+            dniTextField.setText(selectedEmpleado.getDniEmpleado());
+            nombreTextField.setText(selectedEmpleado.getNombreEmpleado());
+            telefonoTextField.setText(String.valueOf(selectedEmpleado.getTelefono()));
+            numeroCuentaTextField.setText(selectedEmpleado.getNumCuenta());
+            sueldoTextField.setText(String.valueOf(selectedEmpleado.getSueldo()));
+
+            // Determinar el tipo de empleado seleccionado y establecer el ComboBox
+            if (selectedEmpleado instanceof Cirujano) {
+                tipoEmpleadoComboBox.getSelectionModel().select("Cirujano");
+            } else if (selectedEmpleado instanceof Veterinario) {
+                tipoEmpleadoComboBox.getSelectionModel().select("Veterinario");
+            } else if (selectedEmpleado instanceof Cuidador) {
+                tipoEmpleadoComboBox.getSelectionModel().select("Cuidador");
+            } else if (selectedEmpleado instanceof Recepcionista) {
+                tipoEmpleadoComboBox.getSelectionModel().select("Recepcionista");
+            } else {
+                tipoEmpleadoComboBox.getSelectionModel().clearSelection();
+            }
+        }
+    }
+
 
     @FXML
     void onClickCentro(ActionEvent event) {

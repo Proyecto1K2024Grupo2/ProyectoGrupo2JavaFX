@@ -45,6 +45,7 @@ public class AnimalDAO {
     private static final String INSERT_ANIMAL = "INSERT INTO animal (dni_cliente, nombre, especie, raza, fnac) VALUES(?, ?, ?, ?, ?)";
     private static final String SELECT_ALL_ANIMAL = "SELECT * FROM animal";
     private static final String SELECT_ANIMAL_BY_ID = "SELECT * FROM animal WHERE id=?";
+    private static final String SELECT_ANIMAL_BY_CLIENTE_DNI = "SELECT * FROM animal WHERE dni_cliente=?";
     private static final String UPDATE_ANIMAL = "UPDATE animal SET dni_cliente=?, nombre=?, especie=?, raza=?, fnac=? WHERE id=?";
     private static final String DELETE_ANIMAL = "DELETE FROM animal WHERE id=?";
     private static final String TOTAL_ANIMAL = "SELECT COUNT(id) FROM animal";
@@ -133,6 +134,17 @@ public class AnimalDAO {
         return animal;
     }
 
+    public Animal getAnimalByDni(String dniCliente) throws SQLException {
+        Animal animal = null;
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_ANIMAL_BY_CLIENTE_DNI)) {
+            statement.setString(1, dniCliente);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                animal = resultSetToAnimal(resultSet);
+            }
+        }
+        return animal;
+    }
 
     /**
      * Metodo que actualiza los datos de un animal por su ID
