@@ -7,3 +7,4 @@
 [**Rubén Expósito Vicente**](https://github.com/Rebirzt)
 
 ## [Repositorio principal](https://github.com/Proyecto1K2024Grupo2/ProyectoGrupo2_2024)
+https://proyecto1k2024grupo2.github.io/ProyectoGrupo2JavaFX/com.iesochoa.grupo2.proyectogrupo2javafx/module-summary.html
