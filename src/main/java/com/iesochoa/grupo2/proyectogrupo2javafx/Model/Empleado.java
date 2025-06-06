@@ -2,7 +2,7 @@ package com.iesochoa.grupo2.proyectogrupo2javafx.Model;
 
 /**
  * Clase Empleado que sirve para guardar información de los empleados de la empresa.
- * {@link com.iesochoa.grupo2.proyectogrupo2javafx.DB.EmpleadoDAO}
+ * {@link com.iesochoa.grupo2.proyectogrupo2javafx.db.EmpleadoDAO}
  * {@link com.iesochoa.grupo2.proyectogrupo2javafx.Controller.EmpleadosController}
  */
 public abstract class Empleado {

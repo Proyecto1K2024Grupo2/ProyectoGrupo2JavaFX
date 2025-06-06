@@ -1,6 +1,6 @@
 package com.iesochoa.grupo2.proyectogrupo2javafx.Model;
 
-import com.iesochoa.grupo2.proyectogrupo2javafx.DB.TratamientoDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.TratamientoDAO;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

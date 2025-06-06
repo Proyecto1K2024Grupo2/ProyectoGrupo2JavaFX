@@ -1,7 +1,7 @@
 package com.iesochoa.grupo2.proyectogrupo2javafx.Model;
 
-import com.iesochoa.grupo2.proyectogrupo2javafx.DB.AnimalDAO;
-import com.iesochoa.grupo2.proyectogrupo2javafx.DB.ClienteDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.AnimalDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.ClienteDAO;
 
 import java.sql.Date;
 import java.time.LocalDate;

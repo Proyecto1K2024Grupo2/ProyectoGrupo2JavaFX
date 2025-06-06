@@ -1,9 +1,9 @@
 package com.iesochoa.grupo2.proyectogrupo2javafx.Model;
 
-import com.iesochoa.grupo2.proyectogrupo2javafx.DB.AnimalDAO;
-import com.iesochoa.grupo2.proyectogrupo2javafx.DB.CitaDAO;
-import com.iesochoa.grupo2.proyectogrupo2javafx.DB.HistorialDAO;
-import com.iesochoa.grupo2.proyectogrupo2javafx.DB.TratamientoDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.AnimalDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.CitaDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.HistorialDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.TratamientoDAO;
 
 import java.sql.Date;
 import java.time.LocalDate;

@@ -1,7 +1,7 @@
-package com.iesochoa.grupo2.proyectogrupo2javafx.DB;
+package com.iesochoa.grupo2.proyectogrupo2javafx.db;
 
 import com.iesochoa.grupo2.proyectogrupo2javafx.Model.Empleado;
-import com.iesochoa.grupo2.proyectogrupo2javafx.Model.Recepcionista;
+import com.iesochoa.grupo2.proyectogrupo2javafx.Model.Veterinario;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,18 +11,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Clase EmpleadoDAO - Maneja las operaciones de base de datos para la tabla Recepcionista.
- * Implementa métodos CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar los Recepcionistas.
+ * Clase VeterinarioDAO - Maneja las operaciones de base de datos para la tabla Veterinario.
+ * Implementa métodos CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar los veterinarios.
  * Implementa el patrón Singleton para asegurar una única instancia.
+ * Extiende de EmpleadoDAO {@link EmpleadoDAO}
+ *
  * @version 01-2025
- * @author Rubén Expósito Vicente
+ * @author Juan Carlos Garcia
  */
-public class RecepcionistaDAO extends EmpleadoDAO{
-
-
-
-    // Instancia única de PersonaDAO
-    private static RecepcionistaDAO instance;
+public class VeterinarioDAO extends EmpleadoDAO {
+    // Instancia única de VeterinarioDAO
+    private static VeterinarioDAO instance;
 
     // Conexión a la base de datos
     private Connection connection;
@@ -30,44 +29,63 @@ public class RecepcionistaDAO extends EmpleadoDAO{
     //Sentencia SQL para crear la si no existe
 
     // Consultas SQL predefinidas para operaciones CRUD
-    private static final String INSERT_QUERY = "INSERT INTO recepcionista (dni) VALUES (?)";
-    private static final String INSERT_QUERY_EMPLEADO = "INSERT INTO empleado(dni, nombre, telefono, numcuenta, Sueldo) VALUES (?, ?, ?, ?,?)";
-    private static final String SELECT_ALL_QUERY = "SELECT e.dni, e.nombre, e.telefono, e.numcuenta, e.Sueldo FROM recepcionista r JOIN empleado e ON r.dni = e.dni";
-    private static final String SELECT_BY_DNI_QUERY = "SELECT e.dni, e.nombre, e.telefono, e.numcuenta, e.Sueldo FROM recepcionista r JOIN empleado e ON r.dni = e.dni WHERE e.dni = ?";
-    private static final String UPDATE_QUERY = "UPDATE recepcionista SET dni = ? WHERE dni = ?";
-    private static final String UPDATE_QUERY_EMPLEADO = "UPDATE empleado SET nombre = ?, telefono = ? , numcuenta = ?, saldo = ?  WHERE dni = ?";
-    private static final String DELETE_QUERY = "DELETE FROM recepcionista WHERE dni = ?";
+    private static final String INSERT_QUERY = "INSERT INTO veterinario (dni) VALUES (?)";
+    private static final String INSERT_QUERY_EMPLEADO = "INSERT INTO empleado(dni, nombre, telefono, numcuenta, sueldo) VALUES (?, ?, ?, ?,?)";
+    private static final String SELECT_ALL_QUERY = "SELECT e.dni, e.nombre, e.telefono, e.numcuenta, e.Sueldo FROM veterinario v JOIN empleado e ON v.dni = e.dni";
+    private static final String SELECT_BY_DNI_QUERY = "SELECT e.dni, e.nombre, e.telefono, e.numcuenta, e.Sueldo FROM veterinario v JOIN empleado e ON v.dni = e.dni WHERE e.dni = ?";
+    private static final String UPDATE_QUERY = "UPDATE veterinario SET dni = ? WHERE dni = ?";
+    private static final String UPDATE_QUERY_EMPLEADO = "UPDATE empleado SET nombre = ?, telefono = ? , numcuenta = ?, saldo=?  WHERE dni = ?";
+    private static final String DELETE_QUERY = "DELETE FROM veterinario WHERE dni = ?";
     private static final String DELETE_QUERY_EMPLEADO = "DELETE FROM empleado WHERE dni = ?";
-    private static final String TOTAL_PERSONAS_QUERY = "SELECT COUNT(*) FROM recepcionista";
+    private static final String TOTAL_VETERINARIOS_QUERY = "SELECT COUNT(*) FROM veterinario";
 
     /**
      * Constructor privado para evitar instanciación externa.
      * Obtiene la conexión a la base de datos desde DBConnection.
      */
-    public RecepcionistaDAO() {
+    public VeterinarioDAO() {
         super();
-        this.connection =DBConnection.getConnection();
+        this.connection = DBConnection.getConnection();
+
     }
 
     /**
-     * Método estático para obtener la única instancia de RecepcionistaDAO.
-     * @return instancia única de RecepcionistaDAO.
+     * Método estático para obtener la única instancia de VeterinarioDAO.
+     * @return instancia única de VeterinarioDAO.
      */
-    public static synchronized RecepcionistaDAO getInstance() {
+    public static synchronized VeterinarioDAO getInstance() {
         if (instance == null) {
-            instance = new RecepcionistaDAO();
+            instance = new VeterinarioDAO();
         }
         return instance;
     }
 
+    // Método para comprobar si el DNI está en la tabla Veterinario
+    public boolean isDniInVeterinario(String dni) throws SQLException {
+        String query = "SELECT COUNT(*) FROM veterinario WHERE dni = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, dni);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1) > 0; // Si el contador es mayor que 0, significa que el DNI está en Veterinario
+            }
+        }
+
+        return false;
+    }
+
+
     /**
-     * Inserta un nuevo recepcionista en la base de datos.
-     * @param empleado Objeto Recepcionista a insertar.
+     * Inserta un nuevo Veterinario en la base de datos.
+     * @param empleado Objeto veterinario a insertar.
      * @throws SQLException Si ocurre un error en la base de datos.
      */
     @Override
     public void insertEmpleado(Empleado empleado) throws SQLException {
         boolean autocommit = true;
+
         autocommit = connection.getAutoCommit();
         connection.setAutoCommit(false);
 
@@ -93,66 +111,65 @@ public class RecepcionistaDAO extends EmpleadoDAO{
     }
 
     /**
-     * Obtiene todos los recepcionistas almacenadas en la base de datos.
-     * @return Lista de objetos Recepcionista.
+     * Obtiene todos los veterinarios almacenados en la base de datos.
+     * @return Lista de objetos Veterinario.
      * @throws SQLException Si ocurre un error en la base de datos.
      */
-
-    public List<Recepcionista> getAllRecepcionista() throws SQLException {
-        List<Recepcionista> personas = new ArrayList<>();
+    public List<Veterinario> getAllVeterinarios() throws SQLException {
+        List<Veterinario> personas = new ArrayList<>();
         try (PreparedStatement statement = connection.prepareStatement(SELECT_ALL_QUERY)) {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                personas.add(resultSetToRecepcionista(resultSet));
+                personas.add(resultSetToVeterinario(resultSet));
             }
         }
         return personas;
     }
 
     /**
-     * Obtiene un recepcionista a partir de su DNI.
-     * @param dni Identificador único del recepcionista.
-     * @return Objeto Recepcionista si se encuentra, null si no.
+     * Obtiene un veterinario a partir de su DNI.
+     * @param dni Identificador único del veterinario.
+     * @return Objeto veterinario si se encuentra, null si no.
      * @throws SQLException Si ocurre un error en la base de datos.
      */
-
-    public Recepcionista getRecepcionistaByDni(String dni) throws SQLException {
-        Recepcionista persona = null;
+    public Veterinario getVeterinarioByDni(String dni) throws SQLException {
+        Veterinario persona = null;
         try (PreparedStatement statement = connection.prepareStatement(SELECT_BY_DNI_QUERY)) {
             statement.setString(1, dni);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                persona = resultSetToRecepcionista(resultSet);
+                persona = resultSetToVeterinario(resultSet);
             }
         }
         if (persona == null) {
-            System.err.println("Este empleado no está registrado como recepcionista en la base de datos.");
+            System.err.println("Este empleado no está registrado como veterinario en la base de datos.");
         }
+
         return persona;
     }
 
+
     /**
-     * Actualiza los datos de un recepcionista en la base de datos.
+     * Actualiza los datos de un veterinario en la base de datos.
      *
-     * @param empleado Objeto Recepcionista con los datos actualizados.
+     * @param persona Objeto veterinario con los datos actualizados.
      * @return
      * @throws SQLException Si ocurre un error en la base de datos.
      */
-
     @Override
-    public boolean updateEmpleado(Empleado empleado) throws SQLException {
+    public boolean updateEmpleado(Empleado persona) throws SQLException {
         boolean autocommit = true;
+
         autocommit = connection.getAutoCommit();
         connection.setAutoCommit(false);
         try (PreparedStatement statement = connection.prepareStatement(UPDATE_QUERY_EMPLEADO)) {
 
-            statement.setString(1, empleado.getNombreEmpleado());
-            statement.setInt(2, empleado.getTelefono());
-            statement.setString(3, empleado.getNumCuenta());
-            statement.setDouble(4,empleado.getSueldo());
-            statement.setString(5, empleado.getDniEmpleado());
 
-
+            statement.setString(1, persona.getNombreEmpleado());
+            statement.setInt(2, persona.getTelefono());
+            statement.setString(3, persona.getNumCuenta());
+            statement.setDouble(4,persona.getSueldo());
+            statement.setString(5, persona.getDniEmpleado());
             statement.executeUpdate();
             connection.commit();
             connection.setAutoCommit(autocommit);
@@ -161,25 +178,25 @@ public class RecepcionistaDAO extends EmpleadoDAO{
             throw ex;
         }
 
+
         return autocommit;
     }
 
     /**
-     * Elimina un recepcionista de la base de datos por su DNI.
-     * @param dni Identificador único del recepcionista a eliminar.
+     * Elimina un veterinario de la base de datos por su DNI.
+     * @param dni Identificador único del veterinario a eliminar.
      * @throws SQLException Si ocurre un error en la base de datos.
      */
-
     @Override
     public void deleteEmpleadoByDni(String dni) throws SQLException {
         boolean autocommit = true;
-
         autocommit = connection.getAutoCommit();
         connection.setAutoCommit(false);
         try (PreparedStatement statement = connection.prepareStatement(DELETE_QUERY)) {
             statement.setString(1, dni);
             PreparedStatement statement2= connection.prepareStatement(DELETE_QUERY_EMPLEADO);
             statement2.setString(1, dni);
+
             statement.executeUpdate();
             connection.commit();
             connection.setAutoCommit(autocommit);
@@ -190,15 +207,14 @@ public class RecepcionistaDAO extends EmpleadoDAO{
 
     }
 
-
     /**
-     * Convierte un ResultSet en un objeto Recepcionista.
+     * Convierte un ResultSet en un objeto Veterinario.
      * @param resultSet Resultado de la consulta SQL.
-     * @return Objeto Recepcionista con los datos del ResultSet.
+     * @return Objeto Veterinario con los datos del ResultSet.
      * @throws SQLException Si ocurre un error en la conversión.
      */
-    private Recepcionista resultSetToRecepcionista(ResultSet resultSet) throws SQLException {
-        return new Recepcionista(
+    private Veterinario resultSetToVeterinario(ResultSet resultSet) throws SQLException {
+        return new Veterinario(
                 resultSet.getString("DNI"),
                 resultSet.getString("Nombre"),
                 resultSet.getInt("Telefono"),
@@ -207,13 +223,13 @@ public class RecepcionistaDAO extends EmpleadoDAO{
     }
 
     /**
-     * Obtiene el total de recepcionistas almacenados en la base de datos.
-     * @return Número total de recepcionistas.
+     * Obtiene el total de veterinarios almacenados en la base de datos.
+     * @return Número total de veterinarios.
      * @throws SQLException Si ocurre un error en la base de datos.
      */
-    public int totalRecepcionista() throws SQLException {
+    public int totalVeterinarios() throws SQLException {
         int total = 0;
-        try (PreparedStatement statement = connection.prepareStatement(TOTAL_PERSONAS_QUERY)) {
+        try (PreparedStatement statement = connection.prepareStatement(TOTAL_VETERINARIOS_QUERY)) {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 total = resultSet.getInt(1);

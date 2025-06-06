@@ -1,4 +1,4 @@
-package com.iesochoa.grupo2.proyectogrupo2javafx.DB;
+package com.iesochoa.grupo2.proyectogrupo2javafx.db;
 
 import com.iesochoa.grupo2.proyectogrupo2javafx.Model.Cliente;
 

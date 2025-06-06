@@ -1,6 +1,6 @@
 package com.iesochoa.grupo2.proyectogrupo2javafx.Model;
 
-import com.iesochoa.grupo2.proyectogrupo2javafx.DB.RecepcionistaDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.RecepcionistaDAO;
 
 import java.sql.SQLException;
 import java.util.Scanner;
