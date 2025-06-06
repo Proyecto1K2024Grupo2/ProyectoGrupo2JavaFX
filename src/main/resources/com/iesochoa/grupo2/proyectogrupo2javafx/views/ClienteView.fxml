@@ -42,10 +42,10 @@
                     <children>
                   <Label layoutX="382.0" layoutY="30.0" style="-fx-font-size: 1.5em; -fx-font-weight: bold;" text="Buscar Clietnte" />
                   <TextField fx:id="searchClienteTextField" layoutX="644.0" layoutY="31.0" promptText="Buscar..." />
-                        <Button fx:id="buscarClienteButton" mnemonicParsing="false" text="Buscar" />
+                        <Button fx:id="buscarClienteButton" mnemonicParsing="false" onAction="#onClickBuscarCliente" text="Buscar" />
                         <Label style="-fx-font-size: 1.5em; -fx-font-weight: bold;" text="Buscar Animal" />
                         <TextField fx:id="searchAnimalTextfield" promptText="Buscar..." />
-                  <Button fx:id="buscarAnimalButton" layoutX="964.0" layoutY="31.0" mnemonicParsing="false" text="Buscar" />
+                  <Button fx:id="buscarAnimalButton" layoutX="964.0" layoutY="31.0" mnemonicParsing="false" onAction="#onClickBuscarAnimal" text="Buscar" />
                     </children>
                 </HBox>
 

@@ -92,8 +92,8 @@ public class Animal {
         return fnac.toLocalDate();
     }
 
-    public void setFnac(LocalDate fnac) {
-        this.fnac = Date.valueOf(fnac);
+    public void setFnac(java.util.Date fnac) {
+        this.fnac = Date.valueOf(String.valueOf(fnac));
     }
 
 

@@ -21,6 +21,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Controlador para la vista de gestión de empleados en la aplicación.
+ * Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los diferentes tipos de empleados
+ * (Cirujano, Veterinario, Recepcionista, Cuidador) y navegar a otras secciones de la aplicación.
+ * {@link Empleado} {@link com.iesochoa.grupo2.proyectogrupo2javafx.DB.EmpleadoDAO}
+ * {@link Cirujano} {@link com.iesochoa.grupo2.proyectogrupo2javafx.DB.CirujanoDAO}
+ * {@link Cuidador} {@link com.iesochoa.grupo2.proyectogrupo2javafx.DB.CuidadorDAO}
+ * {@link Recepcionista} {@link com.iesochoa.grupo2.proyectogrupo2javafx.DB.RecepcionistaDAO}
+ * {@link Veterinario} {@link com.iesochoa.grupo2.proyectogrupo2javafx.DB.VeterinarioDAO}
+ */
 public class EmpleadosController {
 
     @FXML
@@ -103,12 +113,14 @@ public class EmpleadosController {
     private final RecepcionistaDAO recepcionistaDAO = new RecepcionistaDAO();
     private final CuidadorDAO cuidadorDAO = new CuidadorDAO();
 
-    // Lista observable para la tabla
+    /**
+     * Lista observable para la tabla de empleados.
+     */
     private ObservableList<Empleado> listaEmpleados;
 
     /**
      * Método que se ejecuta al inicializar el controlador.
-     * Configura las columnas de la tabla y carga los datos iniciales.
+     * Configura las columnas de la tabla y carga los datos iniciales de todos los empleados.
      */
     @FXML
     public void initialize() {
@@ -125,10 +137,16 @@ public class EmpleadosController {
 
         // Carga todos los empleados al iniciar la vista
         loadAllEmpleados();
+
+        // Agrega un listener para manejar la selección de filas en la tabla
+        empleadosTable.getSelectionModel().selectedItemProperty().addListener(
+                (observable, oldValue, newValue) -> handleClienteTableSelection(newValue));
     }
 
     /**
-     * Carga todos los empleados de todos los tipos y los muestra en la tabla.
+     * Carga todos los empleados de todos los tipos desde la base de datos y los muestra en la tabla.
+     * Limpia la lista observable antes de cargar nuevos datos.
+     * Muestra mensajes de error en {@code errorTextArea} si ocurre una excepción SQL.
      */
     private void loadAllEmpleados() {
         listaEmpleados.clear(); // Limpia la lista antes de cargar nuevos datos
@@ -153,13 +171,42 @@ public class EmpleadosController {
         }
     }
 
-
-
-    @FXML
-    void onClickActualizarEmpleado(ActionEvent event) {
-
+    /**
+     * Maneja la selección de una fila en la tabla de empleados.
+     * Rellena los campos de texto del formulario con los datos del empleado seleccionado.
+     * Si no hay empleado seleccionado, los campos se limpian.
+     * @param empleadoSeleccionado El objeto {@link Empleado} seleccionado en la tabla.
+     */
+    private void handleClienteTableSelection(Empleado empleadoSeleccionado) {
+        if (empleadoSeleccionado != null) {
+            nombreTextField.setText(empleadoSeleccionado.getNombreEmpleado());
+            dniTextField.setText(empleadoSeleccionado.getDniEmpleado());
+            telefonoTextField.setText(String.valueOf(empleadoSeleccionado.getTelefono()));
+            numeroCuentaTextField.setText(empleadoSeleccionado.getNumCuenta());
+            sueldoTextField.setText(String.valueOf(empleadoSeleccionado.getSueldo()));
+        } else {
+            clearClientFields();
+            listaEmpleados.clear(); // Clear animals if no client is selected
+        }
     }
 
+
+    /**
+     * Maneja el evento de clic en el botón "Actualizar".
+     * (Actualmente sin implementar lógica de actualización).
+     * @param event El evento de acción.
+     */
+    @FXML
+    void onClickActualizarEmpleado(ActionEvent event) {
+    }
+
+    /**
+     * Maneja el evento de clic en el botón "Buscar".
+     * Busca empleados por DNI en todos los tipos de empleados.
+     * Si el campo de búsqueda está vacío, carga todos los empleados.
+     * Muestra el resultado de la búsqueda en la tabla y mensajes de error/éxito en {@code errorTextArea}.
+     * @param event El evento de acción.
+     */
     @FXML
     void onClickBuscar(ActionEvent event) {
         String dniBusqueda = searchTextField.getText();
@@ -206,8 +253,9 @@ public class EmpleadosController {
     }
 
     /**
-     * Maneja la acción de buscar empleado (asociado a onAction del TextField).
-     * Simplemente llama a onClickBuscar.
+     * Maneja la acción de buscar empleado (asociado a onAction del TextField de búsqueda).
+     * Simplemente llama a {@link #onClickBuscar(ActionEvent)}.
+     * @param event El evento de acción.
      */
     @FXML
     void onClickBuscarEmpleado(ActionEvent event) {
@@ -215,8 +263,9 @@ public class EmpleadosController {
     }
 
     /**
-     * Maneja el evento de clic en una fila de la tabla.
-     * Muestra los datos del empleado seleccionado en los campos de texto del panel "Info Empleado".
+     * Maneja el evento de selección de una fila en la tabla de empleados.
+     * Rellena los campos de texto del formulario con los datos del empleado seleccionado
+     * y selecciona el tipo de empleado correspondiente en el ComboBox.
      */
     @FXML
     private void handleTableSelection() {
@@ -243,17 +292,43 @@ public class EmpleadosController {
         }
     }
 
+    /**
+     * Limpia todos los campos de texto del formulario de empleado y deselecciona cualquier fila en la tabla.
+     */
+    private void clearClientFields() {
+        nombreTextField.clear();
+        dniTextField.clear();
+        telefonoTextField.clear();
+        numeroCuentaTextField.clear();
+        sueldoTextField.clear();
+        empleadosTable.getSelectionModel().clearSelection(); // Deselect client
+    }
 
+    /**
+     * Maneja el evento de clic en el botón "Centro".
+     * (Actualmente sin implementar, pero podría navegar a una vista de centro).
+     * @param event El evento de acción.
+     */
     @FXML
     void onClickCentro(ActionEvent event) {
 
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Citas".
+     * (Actualmente sin implementar, pero podría navegar a una vista de citas).
+     * @param event El evento de acción.
+     */
     @FXML
     void onClickCitas(ActionEvent event) {
 
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Empleados".
+     * Navega a la vista de empleados ({@code EmpleadoView.fxml}).
+     * @param event El evento de acción.
+     */
     @FXML
     void onClickEmpleados(ActionEvent event) {
         try {
@@ -268,6 +343,11 @@ public class EmpleadosController {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Clientes".
+     * Navega a la vista de clientes ({@code ClienteView.fxml}).
+     * @param event El evento de acción.
+     */
     @FXML
     void onClickClientes(ActionEvent event) {
         try {
@@ -282,6 +362,14 @@ public class EmpleadosController {
         }
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Crear Empleado".
+     * Recopila los datos del formulario, valida la entrada y crea un nuevo empleado
+     * del tipo seleccionado en la base de datos.
+     * Muestra mensajes de éxito o error en {@code errorTextArea}.
+     * @param event El evento de acción.
+     * @throws SQLException Si ocurre un error al interactuar con la base de datos.
+     */
     @FXML
     void onClickCrearEmpleado(ActionEvent event) throws SQLException {
         try {
@@ -310,6 +398,13 @@ public class EmpleadosController {
     }
 
 
+    /**
+     * Maneja el evento de clic en el botón "Eliminar Empleado".
+     * Obtiene el DNI y el tipo de empleado de los campos del formulario y elimina el empleado
+     * correspondiente de la base de datos.
+     * Muestra mensajes de éxito o error en {@code errorTextArea}.
+     * @param event El evento de acción.
+     */
     @FXML
     void onClickEliminarEmpleado(ActionEvent event) {
         try {
@@ -331,12 +426,21 @@ public class EmpleadosController {
     }
 
 
-
+    /**
+     * Maneja el evento de clic en el botón "Historial".
+     * (Actualmente sin implementar, pero podría navegar a una vista de historial).
+     * @param event El evento de acción.
+     */
     @FXML
     void onClickHistorial(ActionEvent event) {
 
     }
 
+    /**
+     * Maneja el evento de clic en el botón "Tratamiento".
+     * (Actualmente sin implementar, pero podría navegar a una vista de tratamientos).
+     * @param event El evento de acción.
+     */
     @FXML
     void onClickTratamiento(ActionEvent event) {
 
