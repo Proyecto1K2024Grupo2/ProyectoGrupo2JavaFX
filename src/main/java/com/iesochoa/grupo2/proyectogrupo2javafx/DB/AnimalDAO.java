@@ -11,6 +11,7 @@ import java.util.List;
  * Clase AnimalDAO - Maneja las operaciones de base de datos para la tabla Animal.
  * Implementa métodos CRUD (Crear, Leer, Actualizar, Eliminar) para gestionar los Animales.
  * Implementa el patrón Singleton para gestionar la conexión a la base de datos.
+ * {@link Animal}
  *
  * @version 01-2025
  * @author Raúl Quílez Ruiz

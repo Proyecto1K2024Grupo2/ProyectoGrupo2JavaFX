@@ -10,6 +10,7 @@ import java.util.Scanner;
 /**
  * Representa un animal asociado a un cliente en una base de datos veterinaria.
  * Incluye información como el nombre, especie, raza y fecha de nacimiento.
+ * {@link AnimalDAO}
  */
 public class Animal {
     private int id;
