@@ -104,93 +104,33 @@ public class Animal {
     /**
      * Convierte los datos de una lista de animales en formato XML.
      *
-     * @param lista Lista de objetos Animal a convertir.
      * @return Representación en XML de la lista de animales.
      */
-    public static String animalesToXML(List<Animal> lista) {
-        StringBuilder xmlBuilder = new StringBuilder();
-        // Añade la declaración XML para una mejor práctica
-        xmlBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-        xmlBuilder.append("<animales>\n");
-        for (Animal a : lista) {
-            xmlBuilder.append("   <animal>\n")
-                    .append("      <id>").append(a.id).append("</id>\n")
-                    .append("      <dni_cliente>").append(a.dni_cliente).append("</dni_cliente>\n")
-                    .append("      <nombre>").append(a.nombreAnimal).append("</nombre>\n")
-                    .append("      <especie>").append(a.especie).append("</especie>\n")
-                    .append("      <raza>").append(a.raza).append("</raza>\n")
-                    .append("      <fnac>").append(a.fnac).append("</fnac>\n") // fnac ya es Date, toString() funciona bien
-                    .append("   </animal>\n");
-        }
-        xmlBuilder.append("</animales>\n");
-        return xmlBuilder.toString();
+    public String animalToXML() {
+        return "   <animal>\n" +
+                "      <id>" + id + "</id>\n" +
+                "      <dni_cliente>" + dni_cliente + "</dni_cliente>\n" +
+                "      <nombre>" + nombreAnimal + "</nombre>\n" +
+                "      <especie>" + especie + "</especie>\n" +
+                "      <raza>" + raza + "</raza>\n" +
+                "      <fnac>" + fnac + "</fnac>\n" +
+                "   </animal>\n";
     }
 
     /**
      * Convierte los datos de una lista de animales en formato JSON.
      *
-     * @param lista Lista de objetos Animal a convertir.
      * @return Representación en JSON de la lista de animales.
      */
-    public static String animalesToJSON(List<Animal> lista) {
-        StringBuilder jsonBuilder = new StringBuilder();
-        jsonBuilder.append("[\n"); // Abrir un array JSON para múltiples objetos
-        for (int i = 0; i < lista.size(); i++) {
-            Animal a = lista.get(i);
-            jsonBuilder.append("   {\n")
-                    .append("      \"id\": ").append(a.id).append(",\n") // ID como número, no string
-                    .append("      \"dni_cliente\": \"").append(a.dni_cliente).append("\",\n")
-                    .append("      \"nombre\": \"").append(a.nombreAnimal).append("\",\n")
-                    .append("      \"especie\": \"").append(a.especie).append("\",\n")
-                    .append("      \"raza\": \"").append(a.raza).append("\",\n")
-                    .append("      \"fnac\": \"").append(a.fnac).append("\"\n") // Fecha como string
-                    .append("   }");
-            if (i < lista.size() - 1) {
-                jsonBuilder.append(",\n"); // Añadir coma si no es el último elemento
-            } else {
-                jsonBuilder.append("\n"); // Nueva línea para el último
-            }
-        }
-        jsonBuilder.append("]\n"); // Cerrar el array JSON
-        return jsonBuilder.toString();
-    }
-
-    /**
-     * Genera un archivo XML con los datos de una lista de animales, con nombre predeterminado.
-     * El archivo se llamará "animales.xml".
-     * @param lista Lista de objetos Animal a exportar.
-     * @return true si el archivo se generó con éxito, false en caso contrario.
-     */
-    public static boolean exportarAnimalesXML(List<Animal> lista) {
-        String nombreArchivo = "animales.xml"; // Nombre de archivo predeterminado
-        String xmlContent = animalesToXML(lista);
-        try (FileWriter fileWriter = new FileWriter(nombreArchivo)) {
-            fileWriter.write(xmlContent);
-            System.out.println("Archivo XML '" + nombreArchivo + "' generado con éxito.");
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error al escribir el archivo XML '" + nombreArchivo + "': " + e.getMessage());
-            return false;
-        }
-    }
-
-    /**
-     * Genera un archivo JSON con los datos de una lista de animales, con nombre predeterminado.
-     * El archivo se llamará "animales.json".
-     * @param lista Lista de objetos Animal a exportar.
-     * @return true si el archivo se generó con éxito, false en caso contrario.
-     */
-    public static boolean exportarAnimalesJSON(List<Animal> lista) {
-        String nombreArchivo = "animales.json"; // Nombre de archivo predeterminado
-        String jsonContent = animalesToJSON(lista);
-        try (FileWriter fileWriter = new FileWriter(nombreArchivo)) {
-            fileWriter.write(jsonContent);
-            System.out.println("Archivo JSON '" + nombreArchivo + "' generado con éxito.");
-            return true;
-        } catch (IOException e) {
-            System.err.println("Error al escribir el archivo JSON '" + nombreArchivo + "': " + e.getMessage());
-            return false;
-        }
+    public String animalToJSON() {
+        return "{" +
+                "\"id\": " + id + ", " +
+                "\"dni_cliente\": \"" + dni_cliente + "\", " +
+                "\"nombre\": \"" + nombreAnimal + "\", " +
+                "\"especie\": \"" + especie + "\", " +
+                "\"raza\": \"" + raza + "\", " +
+                "\"fnac\": \"" + fnac + "\"" +
+                "}";
     }
 
     @Override
