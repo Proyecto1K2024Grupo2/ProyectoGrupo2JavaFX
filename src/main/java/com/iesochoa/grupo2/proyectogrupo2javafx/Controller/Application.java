@@ -4,6 +4,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+
+/**
+ * La clase Application es el punto de entrada principal para iniciar la aplicación JavaFX.
+ * Extiende la clase javafx.application.Application y sobrescribe el método start requerido
+ * para configurar y mostrar la ventana (stage) principal de la aplicación.
+ */
 public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws Exception {

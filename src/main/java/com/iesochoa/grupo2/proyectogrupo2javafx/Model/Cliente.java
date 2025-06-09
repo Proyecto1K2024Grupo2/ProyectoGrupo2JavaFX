@@ -5,6 +5,9 @@ import com.iesochoa.grupo2.proyectogrupo2javafx.db.ClienteDAO;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+/**
+ * Clase cliente con atributos básicos como DNI, nombre y teléfono.
+ */
 public class Cliente {
     private String dniCliente;
     private String nombreCliente;

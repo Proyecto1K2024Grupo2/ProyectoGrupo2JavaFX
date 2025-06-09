@@ -1,7 +1,6 @@
 package com.iesochoa.grupo2.proyectogrupo2javafx.Controller;
 
-import com.iesochoa.grupo2.proyectogrupo2javafx.db.AnimalDAO;
-import com.iesochoa.grupo2.proyectogrupo2javafx.db.ClienteDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.*;
 import com.iesochoa.grupo2.proyectogrupo2javafx.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +29,8 @@ import java.util.List;
  * Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar)
  * tanto para clientes como para sus animales asociados. También facilita la navegación
  * a otras secciones de la aplicación.
+ * {@link Cliente} {@link ClienteDAO}
+ * {@link Animal} {@link AnimalDAO}
  */
 public class ClienteController {
 

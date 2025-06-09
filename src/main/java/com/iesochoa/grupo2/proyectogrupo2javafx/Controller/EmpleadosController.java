@@ -1,9 +1,6 @@
 package com.iesochoa.grupo2.proyectogrupo2javafx.Controller;
 
-import com.iesochoa.grupo2.proyectogrupo2javafx.db.CirujanoDAO;
-import com.iesochoa.grupo2.proyectogrupo2javafx.db.CuidadorDAO;
-import com.iesochoa.grupo2.proyectogrupo2javafx.db.RecepcionistaDAO;
-import com.iesochoa.grupo2.proyectogrupo2javafx.db.VeterinarioDAO;
+import com.iesochoa.grupo2.proyectogrupo2javafx.db.*;
 import com.iesochoa.grupo2.proyectogrupo2javafx.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,11 +22,11 @@ import java.util.List;
  * Controlador para la vista de gestión de empleados en la aplicación.
  * Permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) sobre los diferentes tipos de empleados
  * (Cirujano, Veterinario, Recepcionista, Cuidador) y navegar a otras secciones de la aplicación.
- * {@link Empleado} {@link com.iesochoa.grupo2.proyectogrupo2javafx.db.EmpleadoDAO}
- * {@link Cirujano} {@link com.iesochoa.grupo2.proyectogrupo2javafx.db.CirujanoDAO}
- * {@link Cuidador} {@link com.iesochoa.grupo2.proyectogrupo2javafx.db.CuidadorDAO}
- * {@link Recepcionista} {@link com.iesochoa.grupo2.proyectogrupo2javafx.db.RecepcionistaDAO}
- * {@link Veterinario} {@link com.iesochoa.grupo2.proyectogrupo2javafx.db.VeterinarioDAO}
+ * {@link Empleado} {@link EmpleadoDAO}
+ * {@link Cirujano} {@link CirujanoDAO}
+ * {@link Cuidador} {@link CuidadorDAO}
+ * {@link Recepcionista} {@link RecepcionistaDAO}
+ * {@link Veterinario} {@link VeterinarioDAO}
  */
 public class EmpleadosController {
 
